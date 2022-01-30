@@ -10,6 +10,7 @@ import {EpisodeDetails} from "./views/EpisodeDetails/EpisodeDetails";
 import {LocationsList} from "./views/LocationsList/LocationsList";
 import {LocationDetails} from "./views/LocationDetails/LocationDetails";
 import {Home} from "./views/Home/Home";
+import {NotFound} from "./views/NotFound/NotFound";
 
 const appTitle = "Rick & Morty";
 const pages = [
@@ -35,6 +36,7 @@ function App() {
                     <Route path="episodes/:id" element={<EpisodeDetails/>}/>
                     <Route path="locations" element={<LocationsList/>}/>
                     <Route path="locations/:id" element={<LocationDetails/>}/>
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Box>
         </div>
