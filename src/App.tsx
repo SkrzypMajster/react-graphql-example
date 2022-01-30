@@ -12,7 +12,11 @@ import {LocationDetails} from "./views/LocationDetails/LocationDetails";
 import {Home} from "./views/Home/Home";
 
 const appTitle = "Rick & Morty";
-const pages = ['Characters', 'Episodes', 'Locations'];
+const pages = [
+    { label: 'Characters', path: "characters" },
+    { label: 'Episodes', path: 'episodes' },
+    { label: 'Locations', path: 'locations' },
+];
 
 function App() {
     const handleOnSearch = (event: ChangeEvent<HTMLInputElement>) => {

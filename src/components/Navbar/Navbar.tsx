@@ -13,6 +13,7 @@ import {alpha, InputBase, styled} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import {NavbarProps} from "./Navbar.types";
 import {ChangeEvent} from "react";
+import {Link} from "react-router-dom";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -112,9 +113,11 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
                             sx={{display: {xs: 'block', md: 'none'}}}
                         >
                             {items.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
+                                <Link to={page.path} key={page.path} style={{textDecoration: 'none', color: '#000'}}>
+                                    <MenuItem onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">{page.label}</Typography>
+                                    </MenuItem>
+                                </Link>
                             ))}
                         </Menu>
                     </Box>
@@ -128,13 +131,11 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {items.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{my: 2, color: 'white', display: 'block'}}
-                            >
-                                {page}
-                            </Button>
+                            <Link to={page.path} key={page.path} style={{textDecoration: 'none', color: '#000'}}>
+                                <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
+                                    {page.label}
+                                </Button>
+                            </Link>
                         ))}
                     </Box>
                     <Box sx={{flexGrow: 0, display: {xs: 'none', md: 'block'}}}>
