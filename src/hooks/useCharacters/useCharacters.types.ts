@@ -4,6 +4,7 @@ export type UseCharactersProps = {
 }
 
 export type CharactersListItem = {
+    id: string;
     name: string;
     image: string;
 };

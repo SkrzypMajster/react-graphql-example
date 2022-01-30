@@ -11,6 +11,7 @@ const GET_CHARACTERS = gql`
           prev
         }
         results {
+          id,
           name,
           image
         }
