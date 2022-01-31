@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import {alpha, InputBase, styled} from "@mui/material";
@@ -73,18 +72,19 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
     }
 
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
+        <AppBar position="sticky">
+            <Box sx={{paddingLeft: 3, paddingRight: 3}}>
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{mr: 2, display: {xs: 'none', md: 'flex'}}}
-                    >
-                        {title}
-                    </Typography>
-
+                    <BaseLink path="/">
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{mr: 2, color: '#fff', display: {xs: 'none', md: 'flex'}}}
+                        >
+                            {title}
+                        </Typography>
+                    </BaseLink>
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
@@ -129,7 +129,7 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
                     >
                         {title}
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}, paddingLeft: 1}}>
                         {items.map((page) => (
                             <BaseLink path={page.path} key={page.path}>
                                 <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
@@ -151,7 +151,7 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
                         </Search>
                     </Box>
                 </Toolbar>
-            </Container>
+            </Box>
         </AppBar>
     );
 };
