@@ -11,9 +11,9 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import {alpha, InputBase, styled} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+
 import {NavbarProps} from "./Navbar.types";
-import {ChangeEvent} from "react";
-import {Link} from "react-router-dom";
+import {BaseLink} from "../BaseLink/BaseLink";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -68,7 +68,7 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
         setAnchorElNav(null);
     };
 
-    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         onSearch(event);
     }
 
@@ -113,11 +113,11 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
                             sx={{display: {xs: 'block', md: 'none'}}}
                         >
                             {items.map((page) => (
-                                <Link to={page.path} key={page.path} style={{textDecoration: 'none', color: '#000'}}>
+                                <BaseLink path={page.path} key={page.path}>
                                     <MenuItem onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">{page.label}</Typography>
                                     </MenuItem>
-                                </Link>
+                                </BaseLink>
                             ))}
                         </Menu>
                     </Box>
@@ -131,11 +131,11 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {items.map((page) => (
-                            <Link to={page.path} key={page.path} style={{textDecoration: 'none', color: '#000'}}>
+                            <BaseLink path={page.path} key={page.path}>
                                 <Button onClick={handleCloseNavMenu} sx={{my: 2, color: 'white', display: 'block'}}>
                                     {page.label}
                                 </Button>
-                            </Link>
+                            </BaseLink>
                         ))}
                     </Box>
                     <Box sx={{flexGrow: 0, display: {xs: 'none', md: 'block'}}}>

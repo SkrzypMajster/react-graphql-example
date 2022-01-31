@@ -1,10 +1,10 @@
 import {ChangeEvent} from "react";
 import {Box, Pagination} from "@mui/material";
 
+import {CharactersListItem} from "../../hooks/useCharacters/useCharacters.types";
 import {CharacterListItem} from "../CharacterListItem/CharacterListItem";
 import {CharactersListProps} from "./CharactersList.types";
-import {Link} from "react-router-dom";
-import {CharactersListItem} from "../../hooks/useCharacters/useCharacters.types";
+import {BaseLink} from "../BaseLink/BaseLink";
 
 export const CharactersList = ({characters, pagesCount, page, onChangePage}: CharactersListProps) => {
     const handleOnChange = (event: ChangeEvent<unknown>, value: number) => {
@@ -16,13 +16,9 @@ export const CharactersList = ({characters, pagesCount, page, onChangePage}: Cha
             <Box sx={{display: 'flex', gap: 3, flexWrap: 'wrap'}}>
                 {
                     characters.map((character: CharactersListItem) => (
-                        <Link
-                            to={`/characters/${character.id}`}
-                            key={character.name}
-                            style={{textDecoration: 'none', color: '#000'}}
-                        >
+                        <BaseLink path={`/characters/${character.id}`} key={character.name}>
                             <CharacterListItem name={character.name} image={character.image}/>
-                        </Link>
+                        </BaseLink>
                     ))
                 }
             </Box>
