@@ -7,7 +7,7 @@ import {CharactersListView} from "./views/CharactersList/CharactersListView";
 import {CharacterDetails} from "./views/CharacterDetails/CharacterDetails";
 import {EpisodesListView} from "./views/EpisodesList/EpisodesListView";
 import {EpisodeDetails} from "./views/EpisodeDetails/EpisodeDetails";
-import {LocationsList} from "./views/LocationsList/LocationsList";
+import {LocationsListView} from "./views/LocationsList/LocationsListView";
 import {LocationDetails} from "./views/LocationDetails/LocationDetails";
 import {Home} from "./views/Home/Home";
 import {NotFound} from "./views/NotFound/NotFound";
@@ -34,7 +34,7 @@ function App() {
                     <Route path="characters/:id" element={<CharacterDetails/>}/>
                     <Route path="episodes" element={<EpisodesListView/>}/>
                     <Route path="episodes/:id" element={<EpisodeDetails/>}/>
-                    <Route path="locations" element={<LocationsList/>}/>
+                    <Route path="locations" element={<LocationsListView/>}/>
                     <Route path="locations/:id" element={<LocationDetails/>}/>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
