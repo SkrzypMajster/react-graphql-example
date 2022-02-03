@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import {Box} from "@mui/material";
+import {Route, Routes} from "react-router-dom";
 
 import {Navbar} from "./components/Navbar/Navbar";
-import {Route, Routes} from "react-router-dom";
 import {CharactersListView} from "./views/CharactersList/CharactersListView";
 import {CharacterDetails} from "./views/CharacterDetails/CharacterDetails";
-import {EpisodesList} from "./views/EpisodesList/EpisodesList";
+import {EpisodesListView} from "./views/EpisodesList/EpisodesListView";
 import {EpisodeDetails} from "./views/EpisodeDetails/EpisodeDetails";
 import {LocationsList} from "./views/LocationsList/LocationsList";
 import {LocationDetails} from "./views/LocationDetails/LocationDetails";
@@ -32,7 +32,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="characters" element={<CharactersListView/>}/>
                     <Route path="characters/:id" element={<CharacterDetails/>}/>
-                    <Route path="episodes" element={<EpisodesList/>}/>
+                    <Route path="episodes" element={<EpisodesListView/>}/>
                     <Route path="episodes/:id" element={<EpisodeDetails/>}/>
                     <Route path="locations" element={<LocationsList/>}/>
                     <Route path="locations/:id" element={<LocationDetails/>}/>
