@@ -21,7 +21,7 @@ export const EpisodesListContainer = () => {
         return (
             <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
-                Something went wrong with fetching characters list. Please try again later!
+                Something went wrong with fetching episodes list. Please try again later!
             </Alert>
         );
     }
