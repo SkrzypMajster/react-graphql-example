@@ -1,6 +1,6 @@
 export type UseCharactersProps = {
     page?: number;
-    fitler?: string
+    filter?: string
 }
 
 export type CharactersListItem = {
@@ -18,5 +18,5 @@ export type GetCharactersQuery = {
             prev: number | null;
         },
         results: CharactersListItem[];
-    }
+    } | null;
 };
