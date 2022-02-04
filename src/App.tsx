@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {Box} from "@mui/material";
 import {Route, Routes} from "react-router-dom";
 
@@ -20,13 +20,9 @@ const pages = [
 ];
 
 function App() {
-    const handleOnSearch = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log("Search - ", event.target.value);
-    };
-
     return (
         <div>
-            <Navbar title={appTitle} items={pages} onSearch={handleOnSearch} />
+            <Navbar title={appTitle} items={pages} />
             <Box sx={{margin: 2}}>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
