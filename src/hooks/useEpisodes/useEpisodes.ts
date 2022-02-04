@@ -1,4 +1,4 @@
-import {gql, useQuery} from "@apollo/client";
+import {gql, useLazyQuery} from "@apollo/client";
 import {GetEpisodesQuery, UseEpisodesProps} from "./useEpisodes.types";
 
 const GET_EPISODES = gql`
@@ -22,11 +22,11 @@ query GetEpisodes($page: Int, $filter: String) {
 
 export const useEpisodes = (props: UseEpisodesProps = {}) => {
     const page = props?.page || 1;
-    const filter = props?.fitler || '';
+    const filter = props?.filter || '';
 
-    const {error, loading, data} = useQuery<GetEpisodesQuery>(GET_EPISODES, {
+    const [fetchEpisodes, {error, loading, data}] = useLazyQuery<GetEpisodesQuery>(GET_EPISODES, {
         variables: { page, filter }
     });
 
-    return {error, loading, data};
+    return {fetchEpisodes, error, loading, data};
 }

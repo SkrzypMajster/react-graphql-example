@@ -1,6 +1,6 @@
 export type UseEpisodesProps = {
     page?: number;
-    fitler?: string
+    filter?: string
 }
 
 export type EpisodesListItem = {
