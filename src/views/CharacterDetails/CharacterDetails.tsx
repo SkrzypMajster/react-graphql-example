@@ -80,7 +80,7 @@ export const CharacterDetails = () => {
                     ))
                 }
             </ul>
-            <Box sx={{marginTop: 1}}>
+            <Box sx={{marginTop: 4}}>
                 <BaseLink path="/characters">
                     <Button variant="outlined">
                         <ArrowBack color="primary"/>
