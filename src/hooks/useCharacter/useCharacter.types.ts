@@ -3,8 +3,14 @@ export type UseCharacterProps = {
 }
 
 export type Character = {
-    name: string;
     image: string;
+    name: string;
+    status: string;
+    species: string;
+    gender: string;
+    origin: { id: string; name: string };
+    location: { id: string; name: string };
+    episode: { id: string; name: string }[];
 };
 
 export type GetCharacterQuery = {
