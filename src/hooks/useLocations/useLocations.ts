@@ -1,4 +1,4 @@
-import {gql, useQuery} from "@apollo/client";
+import {gql, useLazyQuery} from "@apollo/client";
 import {GetLocationsQuery, UseLocationsProps} from "./useLocations.types";
 
 const GET_LOCATIONS = gql`
@@ -22,11 +22,11 @@ query GetLocations($page: Int, $filter: String) {
 
 export const useLocations = (props: UseLocationsProps = {}) => {
     const page = props?.page || 1;
-    const filter = props?.fitler || '';
+    const filter = props?.filter || '';
 
-    const {error, loading, data} = useQuery<GetLocationsQuery>(GET_LOCATIONS, {
+    const [fetchLocations, {error, loading, data}] = useLazyQuery<GetLocationsQuery>(GET_LOCATIONS, {
         variables: { page, filter }
     });
 
-    return {error, loading, data};
+    return {fetchLocations, error, loading, data};
 }
