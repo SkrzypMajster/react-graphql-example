@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState, MouseEvent} from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,68 +8,21 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import {alpha, InputBase, styled} from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
 
 import {NavbarProps} from "./Navbar.types";
 import {BaseLink} from "../BaseLink/BaseLink";
+import {SearchInputContainer} from "../SearchInput/SearchInputContainer";
 
-const Search = styled('div')(({theme}) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
+export const Navbar = ({title, items }: NavbarProps) => {
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-const SearchIconWrapper = styled('div')(({theme}) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({theme}) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
-
-export const Navbar = ({title, items, onSearch}: NavbarProps) => {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
     };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-
-    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        onSearch(event);
-    }
 
     return (
         <AppBar position="sticky">
@@ -139,16 +92,7 @@ export const Navbar = ({title, items, onSearch}: NavbarProps) => {
                         ))}
                     </Box>
                     <Box sx={{flexGrow: 0, display: {xs: 'none', md: 'block'}}}>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon/>
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{'aria-label': 'search'}}
-                                onChange={handleOnChange}
-                            />
-                        </Search>
+                        <SearchInputContainer />
                     </Box>
                 </Toolbar>
             </Box>

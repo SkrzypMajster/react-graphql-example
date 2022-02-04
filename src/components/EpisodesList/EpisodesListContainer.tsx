@@ -1,12 +1,22 @@
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Alert, AlertTitle, LinearProgress} from "@mui/material";
 
 import {useEpisodes} from "../../hooks/useEpisodes/useEpisodes";
 import {EpisodesList} from "./EpisodesList";
+import {SearchContext} from "../../context/search/SearchContext";
 
 export const EpisodesListContainer = () => {
+    const { search: filter } = useContext(SearchContext);
     const [page, setPage] = useState(1);
-    const {loading, error, data} = useEpisodes({ page });
+    const {fetchEpisodes, loading, error, data} = useEpisodes({ page, filter });
+
+    useEffect(() => {
+        setPage(1);
+    }, [filter]);
+
+    useEffect(() => {
+        fetchEpisodes({variables: {page, filter}})
+    }, [fetchEpisodes, page, filter]);
 
     const handleOnChangePage = (newPage: number) => {
         setPage(newPage);

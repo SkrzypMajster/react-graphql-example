@@ -16,7 +16,7 @@ export const CharactersList = ({characters, pagesCount, page, onChangePage}: Cha
             <Box sx={{display: 'flex', gap: 3, flexWrap: 'wrap'}}>
                 {
                     characters.map((character: CharactersListItem) => (
-                        <BaseLink path={`/characters/${character.id}`} key={character.name}>
+                        <BaseLink path={`/characters/${character.id}`} key={character.id}>
                             <CharacterListItem name={character.name} image={character.image}/>
                         </BaseLink>
                     ))

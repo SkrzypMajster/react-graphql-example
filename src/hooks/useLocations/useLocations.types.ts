@@ -1,6 +1,6 @@
 export type UseLocationsProps = {
     page?: number;
-    fitler?: string
+    filter?: string
 }
 
 export type LocationsListItem = {

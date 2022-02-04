@@ -6,14 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-import {EpisodesListProps} from "./EpisodesList.types";
-import {BaseLink} from "../BaseLink/BaseLink";
 import {TableFooter, TablePagination} from "@mui/material";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
+import {EpisodesListProps} from "./EpisodesList.types";
+import {BaseLink} from "../BaseLink/BaseLink";
+
 export const EpisodesList = ({ page, count, episodes, onChangePage }: EpisodesListProps) => {
-    const handleChangePage = (
+    const handlePageChange = (
         _event: React.MouseEvent<HTMLButtonElement> | null,
         newPage: number,
     ) => onChangePage(newPage + 1);
@@ -50,7 +50,7 @@ export const EpisodesList = ({ page, count, episodes, onChangePage }: EpisodesLi
                             count={count}
                             rowsPerPage={20}
                             page={page - 1}
-                            onPageChange={handleChangePage}
+                            onPageChange={handlePageChange}
                             ActionsComponent={TablePaginationActions}
                         />
                     </TableRow>
