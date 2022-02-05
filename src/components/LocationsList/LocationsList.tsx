@@ -35,7 +35,7 @@ export const LocationsList = ({ page, count, locations, onChangePage }: Location
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                <BaseLink path={`/episodes/${location.id}`}>{location.name}</BaseLink>
+                                <BaseLink path={`/locations/${location.id}`}>{location.name}</BaseLink>
                             </TableCell>
                             <TableCell>{location.dimension || '-'}</TableCell>
                             <TableCell>{location.type  || '-'}</TableCell>
