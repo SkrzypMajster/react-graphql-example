@@ -1,5 +1,7 @@
+export type CharactersListType = any[];
+
 export type CharactersListProps = {
-    characters: any[];
+    characters: CharactersListType;
     page: number;
     pagesCount: number;
     onChangePage: (newPage: number) => void;

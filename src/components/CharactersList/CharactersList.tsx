@@ -1,10 +1,30 @@
 import {ChangeEvent} from "react";
-import {Box, Pagination} from "@mui/material";
+import {Alert, Box, Pagination} from "@mui/material";
 
-import {CharactersListItem} from "../../hooks/useCharacters/useCharacters.types";
 import {CharacterListItem} from "../CharacterListItem/CharacterListItem";
-import {CharactersListProps} from "./CharactersList.types";
+import {CharactersListProps, CharactersListType} from "./CharactersList.types";
 import {BaseLink} from "../BaseLink/BaseLink";
+import {Character, Maybe} from "../../graphql";
+
+const renderCharacterListItem = (character: Maybe<Character>) => {
+    if (!character?.id || !character?.image) {
+        return;
+    }
+
+    return (
+        <BaseLink path={`/characters/${character.id}`} key={character.id}>
+            <CharacterListItem name={character.name || '-'} image={character.image}/>
+        </BaseLink>
+    );
+}
+
+const renderCharactersList = (characters: CharactersListType) => {
+    if (!characters) {
+        return <Alert severity="info">Characters list is empty!</Alert>;
+    }
+
+    return characters.map((character) => renderCharacterListItem(character));
+}
 
 export const CharactersList = ({characters, pagesCount, page, onChangePage}: CharactersListProps) => {
     const handleOnChange = (event: ChangeEvent<unknown>, value: number) => {
@@ -14,13 +34,7 @@ export const CharactersList = ({characters, pagesCount, page, onChangePage}: Cha
     return (
         <Box>
             <Box sx={{display: 'flex', gap: 3, flexWrap: 'wrap'}}>
-                {
-                    characters.map((character: CharactersListItem) => (
-                        <BaseLink path={`/characters/${character.id}`} key={character.id}>
-                            <CharacterListItem name={character.name} image={character.image}/>
-                        </BaseLink>
-                    ))
-                }
+                {renderCharactersList(characters)}
             </Box>
             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                 <Pagination

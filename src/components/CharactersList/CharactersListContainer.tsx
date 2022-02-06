@@ -40,7 +40,7 @@ export const CharactersListContainer = () => {
 
     return <CharactersList
         page={page}
-        characters={data.characters?.results ? data.characters.results : []}
+        characters={data.characters?.results || []}
         pagesCount={data.characters?.info?.pages ? data.characters.info.pages : 0}
         onChangePage={handleOnChangePage}
     />
