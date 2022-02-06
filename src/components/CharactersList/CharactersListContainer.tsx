@@ -1,14 +1,16 @@
 import {useContext, useEffect, useState} from "react";
 import {Alert, AlertTitle, LinearProgress} from "@mui/material";
 
-import {useCharacters} from "../../hooks/useCharacters/useCharacters";
+import {useGetCharactersLazyQuery} from "../../graphql";
 import {SearchContext} from "../../context/search/SearchContext";
 import {CharactersList} from "./CharactersList";
 
 export const CharactersListContainer = () => {
     const {search: filter} = useContext(SearchContext);
     const [page, setPage] = useState(1);
-    const {fetchCharacters, loading, error, data} = useCharacters({page, filter});
+    const [fetchCharacters, {loading, error, data}] = useGetCharactersLazyQuery({
+        variables: { page, filter }
+    });
 
     useEffect(() => {
         setPage(1);
@@ -38,8 +40,8 @@ export const CharactersListContainer = () => {
 
     return <CharactersList
         page={page}
-        characters={data.characters ? data.characters.results : []}
-        pagesCount={data.characters ? data.characters.info.pages : 0}
+        characters={data.characters?.results ? data.characters.results : []}
+        pagesCount={data.characters?.info?.pages ? data.characters.info.pages : 0}
         onChangePage={handleOnChangePage}
     />
 };
