@@ -3,7 +3,43 @@ import {Alert, AlertTitle, Avatar, Box, Button, Divider, LinearProgress, Typogra
 import {ArrowBack} from "@mui/icons-material";
 
 import {BaseLink} from "../../components/BaseLink/BaseLink";
-import {useGetCharacterQuery} from "../../graphql";
+import {Location, Maybe, useGetCharacterQuery} from "../../graphql";
+
+export const renderLocationField = (location: any | undefined) => {
+    if (!location) {
+        return undefined;
+    }
+
+    if (!location.id) {
+        return <span>{location?.name || '-'}</span>;
+    }
+
+    return (<Link to={`/locations/${location.id}`}> {location?.name || '-'}</Link>);
+}
+
+export const renderEpisodesListItem = (episode: any) => {
+    if (episode) {
+        return undefined;
+    }
+
+    return (
+        <Link to={`/episodes/${episode.id}`} key={episode.id}>
+            <Typography variant="body1">{episode.name || '-'}</Typography>
+        </Link>
+    );
+}
+
+export const renderEpisodesList = (episodes: any[] | undefined) => {
+    if (!episodes) {
+        return undefined;
+    }
+
+    return (
+        <ul>
+            { episodes.map((episode) => ( <li>{ renderEpisodesListItem(episode)}</li>)) }
+        </ul>
+    );
+}
 
 export const CharacterDetails = () => {
     const {id} = useParams();
@@ -48,41 +84,16 @@ export const CharacterDetails = () => {
                 </Typography>
                 <Typography variant="body1">
                     <strong>Origin: </strong>
-                    {
-                        data.character?.origin?.id ?
-                            (
-                                <Link to={`/locations/${data.character.origin.id}`}>
-                                    {data.character.origin.name}
-                                </Link>
-                            ) : <span>{data.character?.origin?.name || '-'}</span>
-                    }
+                    {renderLocationField(data.character?.origin)}
                 </Typography>
                 <Typography variant="body1">
                     <strong>Location: </strong>
-                    {
-                        data.character?.location?.id ?
-                            (
-                                <Link to={`/locations/${data.character.location.id}`}>
-                                    {data.character.location.name}
-                                </Link>
-                            ) : <span>{data.character?.location?.name || '-'}</span>
-                    }
+                    { renderLocationField(data.character?.location) }
                 </Typography>
             </Box>
             <Divider/>
             <Typography variant="h5" sx={{marginTop: 2}}>Episodes:</Typography>
-            <ul>
-                {
-                    data.character?.episode.map((episode) => (
-                        episode?.id? <Link to={`/episodes/${episode.id}`} key={episode.id}>
-                            <li>
-                                <Typography variant="body1">{episode.name || '-'}</Typography>
-                            </li>
-                        </Link> : undefined
-
-                    ))
-                }
-            </ul>
+            { renderEpisodesList(data.character?.episode) }
             <Box sx={{marginTop: 4}}>
                 <BaseLink path="/characters">
                     <Button variant="outlined">
