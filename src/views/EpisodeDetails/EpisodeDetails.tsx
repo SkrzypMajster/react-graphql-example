@@ -1,12 +1,14 @@
 import {useParams} from "react-router-dom";
-import {useEpisode} from "../../hooks/useEpisode/useEpisode";
+import {useGetEpisodeQuery} from "../../graphql";
 import {Alert, AlertTitle, Avatar, Box, Button, Divider, LinearProgress, Typography} from "@mui/material";
 import {BaseLink} from "../../components/BaseLink/BaseLink";
 import {ArrowBack} from "@mui/icons-material";
 
 export const EpisodeDetails = () => {
     const {id} = useParams();
-    const {loading, error, data} = useEpisode({id: Number(id)});
+    const {loading, error, data} = useGetEpisodeQuery({
+        variables: {id: id || ''}
+    });
 
     if (loading) {
         return <LinearProgress/>;
@@ -23,28 +25,28 @@ export const EpisodeDetails = () => {
 
     return (
         <Box>
-            <Typography variant="h5" sx={{marginTop: 1}}>Episode: {data.episode.episode}</Typography>
+            <Typography variant="h5" sx={{marginTop: 1}}>Episode: {data.episode?.episode || '-'}</Typography>
             <Typography variant="body1" sx={{marginTop: 1}}>
                 <strong>Name: </strong>
-                <span>{data.episode.name}</span>
+                <span>{data.episode?.name || '-'}</span>
             </Typography>
             <Typography variant="body1" sx={{marginTop: 1}}>
                 <strong>Air date: </strong>
-                <span>{data.episode.air_date}</span>
+                <span>{data.episode?.air_date || '-'}</span>
             </Typography>
             <Divider/>
             <Typography variant="h5" sx={{marginTop: 1, marginBottom: 2}}>Characters:</Typography>
             <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 2}}>
                 {
-                    data.episode.characters.map((character) => (
-                        <BaseLink path={`/characters/${character.id}`}>
+                    data.episode?.characters ? data.episode.characters.map((character) => (
+                        character?.id && character?.image ? <BaseLink path={`/characters/${character.id}`}>
                             <Avatar
                                 src={character.image}
                                 alt={`${character.name} image`}
                                 sx={{width: 56, height: 56}}
                             />
-                        </BaseLink>
-                    ))
+                        </BaseLink> : undefined
+                    )) : <div>Characters list is empty.</div>
                 }
             </Box>
             <Box sx={{marginTop: 4}}>
