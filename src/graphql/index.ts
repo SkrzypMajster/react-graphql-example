@@ -232,6 +232,13 @@ export type GetEpisodesQueryVariables = Exact<{
 
 export type GetEpisodesQuery = { __typename?: 'Query', episodes?: { __typename?: 'Episodes', info?: { __typename?: 'Info', count?: number | null, pages?: number | null, next?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Episode', id?: string | null, name?: string | null, episode?: string | null, air_date?: string | null } | null> | null } | null };
 
+export type GetLocationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetLocationQuery = { __typename?: 'Query', location?: { __typename?: 'Location', name?: string | null, type?: string | null, dimension?: string | null, residents: Array<{ __typename?: 'Character', id?: string | null, image?: string | null, name?: string | null } | null> } | null };
+
 
 export const GetCharacterDocument = gql`
     query GetCharacter($id: ID!) {
@@ -419,3 +426,45 @@ export function useGetEpisodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetEpisodesQueryHookResult = ReturnType<typeof useGetEpisodesQuery>;
 export type GetEpisodesLazyQueryHookResult = ReturnType<typeof useGetEpisodesLazyQuery>;
 export type GetEpisodesQueryResult = Apollo.QueryResult<GetEpisodesQuery, GetEpisodesQueryVariables>;
+export const GetLocationDocument = gql`
+    query GetLocation($id: ID!) {
+  location(id: $id) {
+    name
+    type
+    dimension
+    residents {
+      id
+      image
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLocationQuery__
+ *
+ * To run a query within a React component, call `useGetLocationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLocationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLocationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetLocationQuery(baseOptions: Apollo.QueryHookOptions<GetLocationQuery, GetLocationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLocationQuery, GetLocationQueryVariables>(GetLocationDocument, options);
+      }
+export function useGetLocationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLocationQuery, GetLocationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLocationQuery, GetLocationQueryVariables>(GetLocationDocument, options);
+        }
+export type GetLocationQueryHookResult = ReturnType<typeof useGetLocationQuery>;
+export type GetLocationLazyQueryHookResult = ReturnType<typeof useGetLocationLazyQuery>;
+export type GetLocationQueryResult = Apollo.QueryResult<GetLocationQuery, GetLocationQueryVariables>;
