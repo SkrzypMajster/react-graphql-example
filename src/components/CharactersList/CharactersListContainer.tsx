@@ -38,10 +38,19 @@ export const CharactersListContainer = () => {
         );
     }
 
+    if (!data.characters?.results?.length) {
+        return (
+            <Alert severity="info">
+                <AlertTitle>Info</AlertTitle>
+                Characters list is empty!
+            </Alert>
+        );
+    }
+
     return <CharactersList
         page={page}
-        characters={data.characters?.results || []}
-        pagesCount={data.characters?.info?.pages ? data.characters.info.pages : 0}
+        characters={data.characters.results}
+        pagesCount={data.characters.info?.pages ? data.characters.info.pages : 0}
         onChangePage={handleOnChangePage}
     />
 };
