@@ -1,14 +1,16 @@
 import {useContext, useEffect, useState} from "react";
 import {Alert, AlertTitle, LinearProgress} from "@mui/material";
 
-import {useEpisodes} from "../../hooks/useEpisodes/useEpisodes";
+import {useGetEpisodesLazyQuery} from "../../graphql";
 import {EpisodesList} from "./EpisodesList";
 import {SearchContext} from "../../context/search/SearchContext";
 
 export const EpisodesListContainer = () => {
     const { search: filter } = useContext(SearchContext);
     const [page, setPage] = useState(1);
-    const {fetchEpisodes, loading, error, data} = useEpisodes({ page, filter });
+    const [fetchEpisodes, {loading, error, data}] = useGetEpisodesLazyQuery({
+        variables: { page, filter }
+    });
 
     useEffect(() => {
         setPage(1);
@@ -27,7 +29,7 @@ export const EpisodesListContainer = () => {
         return <LinearProgress/>;
     }
 
-    if (error || !data || !data.episodes.results) {
+    if (error || !data) {
         return (
             <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
@@ -38,8 +40,8 @@ export const EpisodesListContainer = () => {
 
     return <EpisodesList
         page={page}
-        count={data.episodes.info.count}
-        episodes={data.episodes.results}
+        count={data.episodes?.info?.count || 0}
+        episodes={data.episodes?.results || []}
         onChangePage={handleOnChangePage}
     />
 }
