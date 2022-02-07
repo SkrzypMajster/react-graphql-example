@@ -1,14 +1,16 @@
 import {useContext, useEffect, useState} from "react";
 import {Alert, AlertTitle, LinearProgress} from "@mui/material";
 
-import {useLocations} from "../../hooks/useLocations/useLocations";
+import {useGetLocationsLazyQuery} from "../../graphql";
 import {LocationsList} from "./LocationsList";
 import {SearchContext} from "../../context/search/SearchContext";
 
 export const LocationsListContainer = () => {
     const { search: filter } = useContext(SearchContext);
     const [page, setPage] = useState(1);
-    const {fetchLocations, loading, error, data} = useLocations({ page, filter });
+    const [fetchLocations, {loading, error, data}] = useGetLocationsLazyQuery({
+        variables: { page, filter }
+    });
 
     useEffect(() => {
         setPage(1);
@@ -27,7 +29,7 @@ export const LocationsListContainer = () => {
         return <LinearProgress/>;
     }
 
-    if (error || !data || !data.locations.results) {
+    if (error || !data || !data.locations?.results) {
         return (
             <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
@@ -38,7 +40,7 @@ export const LocationsListContainer = () => {
 
     return <LocationsList
         page={page}
-        count={data.locations.info.count}
+        count={data.locations?.info?.count || 0}
         locations={data.locations.results}
         onChangePage={handleOnChangePage}
     />
