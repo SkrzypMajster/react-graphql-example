@@ -1,8 +1,6 @@
-import {LocationsListItem} from "../../hooks/useLocations/useLocations.types";
-
 export type LocationsListProps = {
     page: number;
     count: number;
-    locations: LocationsListItem[];
+    locations: any[];
     onChangePage: (page: number) => void;
 };
